@@ -44,27 +44,44 @@ cd
 mkdir mlst
 ```
 
-Inside the mlst directory, create another directory called genomes
+`cd` inside the mlst directory then copy in the directory called mlst_genomes from /home/data/mlst_genomes into your current working directory (i.e. mlst):
 
 ```
 cd mlst
-mkdir data
+cp -r /home/data/mlst_genomes .
 ```
 
-Copy genomes (.fa) from xx into data directory 
-
-```
-cp ...
-
-```
 
 ## 4. MLST prediction using mlst-check
 
-mlst-check is currently pre-installed for this course. 
+### mlst-check installation using conda
 
+To install mlst-check, first install or update conda. Then install bioconda and mlst-check.
 
+```
+conda config --add channels defaults
+conda config --add channels conda-forge
+conda config --add channels bioconda
+conda install perl-bio-mlst-check
+```
 
+Set the directory where you would like to store the MLST databases.
 
+```
+export MLST_DATABASES=/home/mlst
+```
+
+Download the most recent copy of MLST databases.
+
+```
+download_mlst_databases
+```
+
+Now you can run pathogen-specific MLST typing.
+
+```
+get_sequence_type -s "Klebsiella pneumoniae" /home/mlst/data/mlst_genomes/*.fasta
+```
 
 
 ## 5. cgMLST prediction using chewBBACA
