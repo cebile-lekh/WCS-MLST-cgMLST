@@ -159,10 +159,10 @@ Steps for GrapeTree visualisation
 
 ## Branch Style
 
-\- Check Show Labels
-\- Font Size: 17
-\- Scaling (%): 53
-\- Check Log Scale
+\- Check Show Labels  
+\- Font Size: 17  
+\- Scaling (%): 53  
+\- Check Log Scale  
 
 
 
