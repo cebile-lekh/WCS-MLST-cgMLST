@@ -71,17 +71,34 @@ Set the directory where you would like to store the MLST databases.
 export MLST_DATABASES=/home/mlst
 ```
 
-Download the most recent copy of MLST databases.
+
+Download the most recent copy of MLST databases
 
 ```
-download_mlst_databases
+download_mlst_databases 
 ```
 
-Now you can run pathogen-specific MLST typing.
+
+You can view the list contained in the MLST databases for your other pathogens of interest
 
 ```
-get_sequence_type -s "Klebsiella pneumoniae" /home/mlst/data/mlst_genomes/*.fasta
+get_sequence_type -a
 ```
+
+
+Now you can run MLST typing for Klebsiella pneumoniae. In the below code, `-s` specifies the database you want to search against
+
+
+```
+get_sequence_type -s "Klebsiella pneumoniae species complex" /home/mlst/data/mlst_genomes/*.fasta
+```
+
+You can add multiple option into the line of code. E.g. `-c' outputs a FASTA file with contatenated alleles for building a phylogenetic tree. Similarly, `-y` outputs a phylip file with contatenated alleles
+
+```
+get_sequence_type -s "Klebsiella pneumoniae species complex" /home/mlst/data/mlst_genomes/*.fasta
+```
+
 
 
 ## 5. cgMLST prediction using chewBBACA
@@ -90,10 +107,12 @@ get_sequence_type -s "Klebsiella pneumoniae" /home/mlst/data/mlst_genomes/*.fast
 
 Install chewbbaca and activate environment
 
+
 ```
 conda create -n chewbbaca -c bioconda -c conda-forge chewbbaca grapetree
 conda activate chewbbaca
 ```
+
 
 Retrieve K. pneumoniae cgMLST schema form ridom seqsphere
 
@@ -102,11 +121,13 @@ curl -o k_pneumoniae_cgMLST_alleles.zip https://www.cgmlst.org/ncs/schema/Kpneum
 unzip k_pneumoniae_cgMLST_alleles.zip -d k_pneumoniae_cgMLST
 ```
 
+
 PrepExternalSchema - Adapt the ridom seqsphere schema to be used with chewBBACA
 
 ```
 chewBBACA.py PrepExternalSchema -g k_pneumoniae_cgMLST -o k_pneumoniae_schema --cpu 8
 ```
+
 
 AlleleCall - Determine the allelic profiles of a set of genomes
 
@@ -114,11 +135,13 @@ AlleleCall - Determine the allelic profiles of a set of genomes
 chewBBACA.py AlleleCall -i genomes -g k_pneumoniae_schema -o allele_calls --cpu 8
 ```
 
+
 SchemaEvaluator - Build an interactive report for schema evaluation
 
 ```
 chewBBACA.py SchemaEvaluator -g k_pneumoniae_schema -o SchemaEvaluator --cpu 8
 ```
+
 
 AlleleCallEvaluator - Build an interactive report for allele calling results evaluation
 
@@ -126,17 +149,20 @@ AlleleCallEvaluator - Build an interactive report for allele calling results eva
 chewBBACA.py AlleleCallEvaluator -i allele_calls -g k_pneumoniae_schema -o AlleleCallEvaluator --cpu 8 
 ```
 
+
 ExtractCgMLST - Determine the set of loci that constitute the core genome
 
 ```
 chewBBACA.py ExtractCgMLST -i allele_calls/results_alleles.tsv -o cgmlst_matrix
 ```
 
+
 Open GrapeTree and follow the below steps
 
 ```
 grapetree
 ```
+
 
 Steps for GrapeTree visualisation
 
