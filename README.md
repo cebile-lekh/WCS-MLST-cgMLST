@@ -9,7 +9,7 @@
 3.	Genomes for MLST and cgMLST analysis
 4.	MLST prediction using mlst-check
 5.	cgMLST prediction using chewBBACA
-6.	MLST and cgMLST comparative visualisation (Phyloviz and GrapeTree)
+6.	MLST and cgMLST comparative visualisation
 7.	Q&A
 
 
@@ -54,7 +54,7 @@ cp -r /home/data/mlst_genomes .
 
 ## 4. MLST prediction using mlst-check
 
-### mlst-check installation using conda
+## mlst-check installation using conda
 
 To install mlst-check, first install or update conda. Then install bioconda and mlst-check.
 
@@ -86,12 +86,89 @@ get_sequence_type -s "Klebsiella pneumoniae" /home/mlst/data/mlst_genomes/*.fast
 
 ## 5. cgMLST prediction using chewBBACA
 
+## chewBBACA installation
+
+Install chewbbaca and activate environment
+
+```
+conda create -n chewbbaca -c bioconda -c conda-forge chewbbaca grapetree
+conda activate chewbbaca
+```
+
+Retrieve K. pneumoniae cgMLST schema form ridom seqsphere
+
+```
+curl -o k_pneumoniae_cgMLST_alleles.zip https://www.cgmlst.org/ncs/schema/Kpneumoniae1936/alleles/
+unzip k_pneumoniae_cgMLST_alleles.zip -d k_pneumoniae_cgMLST
+```
+
+PrepExternalSchema - Adapt the ridom seqsphere schema to be used with chewBBACA
+
+```
+chewBBACA.py PrepExternalSchema -g k_pneumoniae_cgMLST -o k_pneumoniae_schema --cpu 8
+```
+
+AlleleCall - Determine the allelic profiles of a set of genomes
+
+```
+chewBBACA.py AlleleCall -i genomes -g k_pneumoniae_schema -o allele_calls --cpu 8
+```
+
+SchemaEvaluator - Build an interactive report for schema evaluation
+
+```
+chewBBACA.py SchemaEvaluator -g k_pneumoniae_schema -o SchemaEvaluator --cpu 8
+```
+
+AlleleCallEvaluator - Build an interactive report for allele calling results evaluation
+
+```
+chewBBACA.py AlleleCallEvaluator -i allele_calls -g k_pneumoniae_schema -o AlleleCallEvaluator --cpu 8 
+```
+
+ExtractCgMLST - Determine the set of loci that constitute the core genome
+
+```
+chewBBACA.py ExtractCgMLST -i allele_calls/results_alleles.tsv -o cgmlst_matrix
+```
+
+Open GrapeTree and follow the below steps
+
+```
+grapetree
+```
+
+Steps for GrapeTree visualisation
+
+## Load cgMLST file
+\- Click “Load Data”  
+\- Select cgMLST95.tsv inside the cgmlst_matrix directory  
+\- Select MSTreeV2 under the method drop-down arrow  
+
+## Tree Layout
+
+
+## Node Style
+
+\- Check Show Labels  
+\- Colour By: ID  
+\- Label Font Size: 11  
+\- Node Size: 500  
+\- Kurtosis (%): 30  
+
+
+## Branch Style
+
+\- Check Show Labels
+\- Font Size: 17
+\- Scaling (%): 53
+\- Check Log Scale
 
 
 
-## 6. MLST and cgMLST comparative visualisation (Phyloviz and GrapeTree)
+## 6. MLST and cgMLST comparative visualisation
 
-
+TBC - Discussion
 
 
 ## 7. Q&A
