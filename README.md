@@ -27,9 +27,9 @@ Several bioinformatics tools that identify MLST sequence types directly from the
 ## 2. Expected learning outcomes
 
 At the end of this practical session, one should be able to:  
-  \-	Use command-line tools such as mlst-check and chewBBACA to identify isolates’ MLST and cgMLST profiles or sequence types;  
-  \-	Use tools such as PHYLOViZ and GrapeTree to visualise MLST and cgMLST results, respectively;  
-  \-	Compare and contrast the two methods and when each is useful  
+  *	Use command-line tools such as mlst-check and chewBBACA to identify isolates’ MLST and cgMLST profiles or sequence types;
+  *	Use tools such as PHYLOViZ and GrapeTree to visualise MLST and cgMLST results, respectively;  
+  * Compare and contrast the two methods and when each is useful  
 
 
 
@@ -138,7 +138,7 @@ chewBBACA.py PrepExternalSchema -g k_pneumoniae_cgMLST -o k_pneumoniae_schema --
 AlleleCall - Determine the allelic profiles of a set of genomes
 
 ```
-chewBBACA.py AlleleCall -i genomes -g k_pneumoniae_schema -o allele_calls --cpu 8
+chewBBACA.py AlleleCall -i mlst_genomes -g k_pneumoniae_schema -o allele_calls --cpu 8
 ```
 
 
@@ -170,31 +170,29 @@ grapetree
 ```
 
 
-Steps for GrapeTree visualisation
+Steps for GrapeTree visualisation:
 
 ## Load cgMLST file
-\- Click “Load Data”  
-\- Select cgMLST95.tsv inside the cgmlst_matrix directory  
-\- Select MSTreeV2 under the method drop-down arrow  
+* Click “Load Data”  
+* Select cgMLST95.tsv inside the cgmlst_matrix directory  
+* Select MSTreeV2 under the method drop-down arrow  
 
 ## Tree Layout
 
 
 ## Node Style
-
-\- Check Show Labels  
-\- Colour By: ID  
-\- Label Font Size: 11  
-\- Node Size: 500  
-\- Kurtosis (%): 30  
+* Check Show Labels  
+* Colour By: ID  
+* Label Font Size: 11  
+* Node Size: 500  
+* Kurtosis (%): 30  
 
 
 ## Branch Style
-
-\- Check Show Labels  
-\- Font Size: 17  
-\- Scaling (%): 53  
-\- Check Log Scale  
+* Check Show Labels  
+* Font Size: 17  
+* Scaling (%): 53  
+* Check Log Scale  
 
 
 
