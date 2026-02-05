@@ -93,12 +93,18 @@ Now you can run MLST typing for Klebsiella pneumoniae. In the below code, `-s` s
 get_sequence_type -s "Klebsiella pneumoniae species complex" /home/mlst/data/mlst_genomes/*.fasta
 ```
 
-You can add multiple option into the line of code. E.g. `-c' outputs a FASTA file with contatenated alleles for building a phylogenetic tree. Similarly, `-y` outputs a phylip file with contatenated alleles
+You can add multiple options to the line of code. E.g., `-c` outputs a FASTA file with concatenated alleles for building a phylogenetic tree. Similarly, `-y` outputs a phylip file with concatenated alleles for the same purpose.
 
 ```
-get_sequence_type -s "Klebsiella pneumoniae species complex" /home/mlst/data/mlst_genomes/*.fasta
+get_sequence_type -c -s "Klebsiella pneumoniae species complex" /home/mlst/data/mlst_genomes/*.fasta
 ```
 
+mlst-check outputs a 'mlst_results.allele.csv' that contains the sequence type number of each input FASTA file and the corresponding allele numbers for each gene in the scheme. 
+
+Note:
+It is important to submit unknown alleles to PubMLST for identification and allele number assignment. Therefore, if one of the alleles is unknown in the database, mlst-check assigns it a 'U' flag, and the third column will describe it as 'Unknown'. If the combination of allele numbers is new, it will be flagged as 'Novel'.
+
+The 'mlst_results.genomic.csv' spreadsheet is similar to the mlst_results.allele.csv spreadsheet, but it gives the full sequences of each allele instead of the allele number. These can then be used for submission to PubMLST in the case of unknown or novel alleles.
 
 
 ## 5. cgMLST prediction using chewBBACA
